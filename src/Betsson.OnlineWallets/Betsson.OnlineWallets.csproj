@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Betsson.OnlineWallets.Data\Betsson.OnlineWallets.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+  <InternalsVisibleTo Include="Betsson.OnlineWallets.Tests" />
+</ItemGroup>
+
 </Project>
