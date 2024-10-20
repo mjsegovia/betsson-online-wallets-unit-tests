@@ -46,7 +46,7 @@ namespace Betsson.OnlineWallets.Tests.OnlineWalletServiceTests
         }
 
         [Fact]
-        public async Task DepositFundsAsync_DepositAmountIsZero_ShouldReturnException()
+        public async Task DepositFundsAsync_ZeroAmount_ShouldInsertTransaction()
         {
             //Arrange
             var initialBalance = new OnlineWalletEntry
@@ -59,15 +59,41 @@ namespace Betsson.OnlineWallets.Tests.OnlineWalletServiceTests
                 .Setup(repo => repo.GetLastOnlineWalletEntryAsync())
                 .ReturnsAsync(initialBalance);
 
-            var deposit = new Deposit { Amount = 100 };
+            var deposit = new Deposit { Amount = 0 };
 
             //Act
-            Func<Task> act = async () => await _service.DepositFundsAsync(deposit);
+            var result = await _service.DepositFundsAsync(deposit);            
 
             //Assert
-            await act.Should().ThrowAsync<ArgumentNullException>()
-                .WithParameterName("lalalal")
-                .WithMessage("Hello is not allowed at this moment");
+            _repositoryMock.Verify(repo => repo.InsertOnlineWalletEntryAsync(It.Is<OnlineWalletEntry>(e => e.Amount == 0m && e.BalanceBefore == 333m)), Times.Once);
+            result.Amount.Should().Be(333m);
+
+
+        }
+
+        [Fact]
+        public async Task DepositFundsAsync_DepositAmountIsNegative_ShouldReturnException()
+        {
+            //Arrange
+            var initialBalance = new OnlineWalletEntry
+            {
+                BalanceBefore = 111,
+                Amount = 222
+            };
+
+            _repositoryMock
+                .Setup(repo => repo.GetLastOnlineWalletEntryAsync())
+                .ReturnsAsync(initialBalance);
+
+            var deposit = new Deposit { Amount = -33 };
+
+            //Act
+            var result = await _service.DepositFundsAsync(deposit);
+            Func<Task> act = async () => await _service.DepositFundsAsync(deposit);
+
+            //Assert            
+            await act.Should().ThrowAsync<ArgumentOutOfRangeException>()                
+                .WithMessage("deposit amount is not valid");
 
             _repositoryMock.Verify(repo => repo.InsertOnlineWalletEntryAsync(It.IsAny<OnlineWalletEntry>()), Times.Never);
 
