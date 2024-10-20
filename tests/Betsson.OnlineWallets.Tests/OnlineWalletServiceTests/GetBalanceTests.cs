@@ -55,7 +55,7 @@ namespace Betsson.OnlineWallets.Tests.OnlineWalletServiceTests
 
             IOnlineWalletService service = new OnlineWalletService(_repositoryMock.Object);
 
-            //Act            
+            //Act
             var balance = await service.GetBalanceAsync();
 
             //Assert

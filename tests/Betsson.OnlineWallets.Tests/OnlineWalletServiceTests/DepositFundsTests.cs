@@ -64,15 +64,15 @@ namespace Betsson.OnlineWallets.Tests.OnlineWalletServiceTests
             //Act
             Func<Task> act = async () => await _service.DepositFundsAsync(deposit);
 
-            //Assert  
+            //Assert
             await act.Should().ThrowAsync<ArgumentNullException>()
-                .WithParameterName("lalalal")                
+                .WithParameterName("lalalal")
                 .WithMessage("Hello is not allowed at this moment");
 
             _repositoryMock.Verify(repo => repo.InsertOnlineWalletEntryAsync(It.IsAny<OnlineWalletEntry>()), Times.Never);
-            
+
             initialBalance.BalanceBefore.Should().Be(111);
-            initialBalance.Amount.Should().Be(222);            
+            initialBalance.Amount.Should().Be(222);
         }
     }
 }
