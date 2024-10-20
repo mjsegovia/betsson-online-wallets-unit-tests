@@ -5,6 +5,7 @@ using Betsson.OnlineWallets.Models;
 using Betsson.OnlineWallets.Services;
 using FluentAssertions;
 using Moq;
+using Xunit;
 
 namespace Betsson.OnlineWallets.Tests.OnlineWalletServiceTests
 {
@@ -19,6 +20,7 @@ namespace Betsson.OnlineWallets.Tests.OnlineWalletServiceTests
             _service = new OnlineWalletService(_repositoryMock.Object);
         }
 
+        [Fact]
         public async Task WithdrawFundsAsync_WithValidEntries_ShouldDecreaseBalance()
         {
             //Arrange
@@ -40,6 +42,7 @@ namespace Betsson.OnlineWallets.Tests.OnlineWalletServiceTests
             _repositoryMock.Verify(repo => repo.InsertOnlineWalletEntryAsync(It.Is<OnlineWalletEntry>(b => b.Amount == 255.5m)), Times.Once);
         }
 
+        [Fact]
         public async Task WithdrawFundsTest_InsufficientFunds_ShouldReturnInsufficientBalanceException()
         {
             //Arrange
@@ -60,6 +63,7 @@ namespace Betsson.OnlineWallets.Tests.OnlineWalletServiceTests
             _repositoryMock.Verify(repo => repo.InsertOnlineWalletEntryAsync(It.IsAny<OnlineWalletEntry>()), Times.Never);
         }
 
+        [Fact]
         public async Task WithdrawFunds_WithdrawAmountIsZero_ShouldRetunException()
         {
             //Arrange
