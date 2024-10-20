@@ -25,7 +25,7 @@ namespace Betsson.OnlineWallets.Tests.OnlineWalletServiceTests
             //Arrange
             var wallet = new OnlineWalletEntry
             {
-                Amount = 100.5m,
+                Amount = 100.05m,
                 BalanceBefore = 300.75m
             };
 
@@ -48,10 +48,9 @@ namespace Betsson.OnlineWallets.Tests.OnlineWalletServiceTests
         public async Task GetBalanceAsync_WhenNoTransactions_ShouldReturnZero()
         {
             //Arrange
-            //TODO: REVISAR ESE NULLL
             _repositoryMock
                 .Setup(repo => repo.GetLastOnlineWalletEntryAsync())
-                .ReturnsAsync((OnlineWalletEntry)null);
+                .ReturnsAsync(new OnlineWalletEntry());
 
             IOnlineWalletService service = new OnlineWalletService(_repositoryMock.Object);
 
