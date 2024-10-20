@@ -14,8 +14,10 @@
     <ProjectReference Include="..\Betsson.OnlineWallets.Data\Betsson.OnlineWallets.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-  <InternalsVisibleTo Include="Betsson.OnlineWallets.Tests" />
-</ItemGroup>
+    <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Betsson.OnlineWallets.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 
 </Project>
