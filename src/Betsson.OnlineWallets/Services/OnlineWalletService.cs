@@ -2,9 +2,6 @@ using Betsson.OnlineWallets.Data.Models;
 using Betsson.OnlineWallets.Data.Repositories;
 using Betsson.OnlineWallets.Exceptions;
 using Betsson.OnlineWallets.Models;
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("Betsson.OnlineWallets.UnitTests")]
 
 namespace Betsson.OnlineWallets.Services
 {
