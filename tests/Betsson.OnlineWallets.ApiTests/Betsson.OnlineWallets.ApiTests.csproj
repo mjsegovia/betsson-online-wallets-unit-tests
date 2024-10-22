@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.12.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
     <PackageReference Include="SpecFlow" Version="3.9.74" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.74" />
     <PackageReference Include="SpecFlow.xUnit" Version="3.9.74" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
       <PrivateAssets>all</PrivateAssets>
@@ -17,8 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
-    <Folder Include="Steps\" />
+    <ProjectReference Include="..\..\src\Betsson.OnlineWallets.Web\Betsson.OnlineWallets.Web.csproj" />
   </ItemGroup>
 
 </Project>
