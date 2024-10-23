@@ -16,7 +16,7 @@ Feature: Deposit Funds
     Then the transacction should be successful with status 'Completed' 
     And the response status code should be '200'
     And the status description should be 'OK'    
-    And the balance should be updated to reflect the transaction
+    And the balance should be updated to reflect the 'deposit' transaction
     
     @ErrorResponse
   Scenario: Fail to deposit funds with an invalid amount
