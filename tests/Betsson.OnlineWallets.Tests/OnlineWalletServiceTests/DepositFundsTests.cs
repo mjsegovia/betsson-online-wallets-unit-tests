@@ -67,10 +67,8 @@ namespace Betsson.OnlineWallets.Tests.OnlineWalletServiceTests
             //Assert
             _repositoryMock.Verify(repo => repo.InsertOnlineWalletEntryAsync(It.Is<OnlineWalletEntry>(e => e.Amount == 0m && e.BalanceBefore == 333m)), Times.Once);
             result.Amount.Should().Be(333m);
-
-
         }
-
+         
         [Fact(Skip = "This test is currently ignored until get fix update the balance with negative deposit")]
         public async Task DepositFundsAsync_DepositAmountIsNegative_ShouldReturnException()
         {
