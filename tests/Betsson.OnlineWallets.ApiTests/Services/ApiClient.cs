@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using IconTestFramework.Core.Config;
+using Newtonsoft.Json;
 using RestSharp;
 using System.Security.Policy;
 using System.Text;
@@ -11,8 +12,7 @@ namespace Betsson.OnlineWallets.Web.Services
 
         public ApiClient()
         {
-            _client = new RestClient(new Uri("http://localhost/onlinewallet/")); 
-           
+            _client = new RestClient(new Uri(Configurator.BaseUrl));           
         }
 
         public async Task<RestResponse> GetAsync(string url)
@@ -45,19 +45,15 @@ namespace Betsson.OnlineWallets.Web.Services
             request.AddJsonBody(payload);
 
             var response = await _client.ExecuteAsync(request);
-           // HandleErrors(response);
-
+           
             var content = response.Content;
-            var responseData = JsonConvert.DeserializeObject<T>(content);
-
-            
+            var responseData = JsonConvert.DeserializeObject<T>(content);            
 
             return response;
         }
 
         public async Task<string> GetResponseContent(RestResponse response)
-            => response.Content ?? throw new HttpRequestException($"Response content is null for the request.");
-       
+            =>  response.Content ?? throw new HttpRequestException($"Response content is null for the request.");    
 
         //Private method to handle errors
         private void HandleErrors(RestResponse response)
